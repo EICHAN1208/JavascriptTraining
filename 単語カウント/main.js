@@ -1,15 +1,6 @@
 // 入力: "no ruby no life"
 // 出力: {"no" => 2, "ruby" => 1, "life" => 1}
 
-// 配列にする
-// それぞれの要素の数を数える
-// 結果をハッシュに入れる
-
-// どのような出力をするか
-// let word = 'no javascript no life';
-// word_count(word);
-// => {"no" => 2, "ruby" => 1, "life" => 1}
-
 let word = 'no javascript no life';
 let array1 = word.split(' ');
 
