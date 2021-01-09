@@ -6,10 +6,10 @@ let array1 = word.split(' ');
 
 function toCountDict(array) {
   let dict = {};
-  for(let value of array) {
-    dict[value] = array.filter(function(x) {   // xには順番にarrayの要素が渡される
-      return x === value;
-    }).length;   // arrayの要素を一つずつ評価して、その要素とkeyが等しいならば、trueなのでその要素自体を返す
+  for(let key of array) {  // arrayの要素を一つずつ評価
+    dict[key] = array.filter(function(x) {  // dict[key]がdictオブジェクトの値となる, arrayの要素と等しいものをまたarrayからfilterしている
+      return x === key;
+    }).length;
   }
   return dict;
 }
@@ -18,6 +18,13 @@ console.log(toCountDict(array1));
 
 
 // array1の中身の要素を順番に実行する
-for(let value of array1) {
-  console.log(value);
-}
+// for(let value of array1) {
+//   console.log(value);
+// }
+
+// let ary = [1,2,3];
+// let dict = { "hello": null };
+// dict[hello] = ary.filter( x => {
+//   return x === 1;
+// })
+// console.log(dict);
