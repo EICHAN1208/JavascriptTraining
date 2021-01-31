@@ -1,14 +1,15 @@
-const winningHandSet = [
-  ['グー', 'チョキ'],
-  ['チョキ', 'パー'],
-  ['パー', 'グー']
-]
-
 const HANDS = [
   'グー',
   'チョキ',
   'パー'
 ]
+
+const winningHandSet = [
+  HANDS.slice(0, 2),
+  HANDS.slice(1, 3),
+  [HANDS[2], HANDS[0]]
+]
+
 
 function Janken(playerNum) {
   this.players = [...Array(playerNum)].map((_, i) => new Player(`cpu${i}`, Hand.random().type));
@@ -21,7 +22,7 @@ Janken.prototype.hoi = function(yourHand) {
     return [{ winner: null }];
   } else {
     const winHand = this.decideWinningHand(yourHand);
-    return this.allPlayerAndHand().filter(player => {
+    return this.allPlayerAndHand(yourHand).filter(player => {
       if(player.hand === winHand) {
         return player.name;
       }
@@ -40,7 +41,8 @@ Janken.prototype.decideWinningHand = function(yourHand) {
   }
 }
 
-Janken.prototype.allPlayerAndHand = function() {
+Janken.prototype.allPlayerAndHand = function(yourHand) {
+  this.you.hand = yourHand
   this.players.push(this.you)
   return this.players;
 }
@@ -51,11 +53,17 @@ Janken.prototype.collectAllHands = function(yourHand) {
   return players_hand;
 }
 
+// Janken.prototype.uniq = function(array) {
+//   return array.filter(function(elem, index, self) {
+//     return self.indexOf(elem) === index;
+//   });
+// }
+
 Janken.prototype.uniq = function(array) {
-  return array.filter(function(elem, index, self) {
-    return self.indexOf(elem) === index;
-  });
+  return Array.from(new Set(array))
 }
+// スプレッド構文でも書ける
+// [...new Set(array)];
 
 function Player(name, hand) {
   this.name = name;
@@ -81,6 +89,8 @@ Hand.random = function() {
 const janken = new Janken(3);
 console.log(janken.hoi('グー'));
 
+// console.log(janken.uniq([1,2,3,3,3,3,3,5,6,6,6,7,7,7,8,8,9,10]));
+
 
 // console.log(janken.players);
 // console.log(janken.you);
@@ -90,3 +100,5 @@ console.log(janken.hoi('グー'));
 // console.log(janken.hoi('グー'));
 // => [winner: 'you', loser: ['cpu1', 'cpu2', 'cpu3']]
 // => 
+
+// console.log(janken.allPlayerAndHand('パー'));
